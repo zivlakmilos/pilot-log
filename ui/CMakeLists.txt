@@ -1,4 +1,8 @@
 qt_add_library(ui STATIC
+  WBase.cpp
+
+  WAirplanes.cpp
+
   DWRibbon.cpp
   MainWindow.cpp
 )

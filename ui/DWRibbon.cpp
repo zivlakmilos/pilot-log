@@ -20,4 +20,6 @@ DWRibbon::~DWRibbon(void)
 void DWRibbon::setupHandlers(void)
 {
   connect(m_ui->btnQuit, &QToolButton::clicked, this, &DWRibbon::quitClicked);
+
+  connect(m_ui->btnAirplanes, &QToolButton::clicked, this, &DWRibbon::airplanesClicked);
 }
