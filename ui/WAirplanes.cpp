@@ -124,12 +124,13 @@ void WAirplanes::save(void)
     return;
   }
 
-  m_model->select();
   add();
 }
 
 void WAirplanes::add(void)
 {
+  m_model->select();
+
   m_bEdited = false;
   m_sSelectedId = "";
 
@@ -166,6 +167,5 @@ void WAirplanes::remove(void)
     return;
   }
 
-  m_model->select();
   add();
 }
