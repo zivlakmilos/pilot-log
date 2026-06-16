@@ -37,6 +37,19 @@
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="btnDelete">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Delete Ariplane</string>
+        </property>
+        <property name="icon">
+         <iconset theme="QIcon::ThemeIcon::EditDelete"/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btnAdd">
         <property name="text">
          <string>Add Airplane</string>
@@ -52,7 +65,17 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
      <item>
-      <widget class="QTableView" name="tblAirplanes"/>
+      <widget class="QTableView" name="tblAirplanes">
+       <property name="editTriggers">
+        <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QFrame" name="frame_2">

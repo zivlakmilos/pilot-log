@@ -3,6 +3,8 @@
 
 #include "WBase.h"
 
+class QSqlTableModel;
+
 namespace Ui
 {
 class WAirplanes;
@@ -15,7 +17,17 @@ public:
   ~WAirplanes(void);
 
 private:
+  void setupHandlers(void);
+  void setupModels(void);
+  void save(void);
+  void add(void);
+  void remove(void);
+
   Ui::WAirplanes *m_ui;
+  QSqlTableModel *m_model;
+
+  QString m_sSelectedId;
+  bool m_bEdited;
 };
 
 #endif // _WAIRPLANES_H_
