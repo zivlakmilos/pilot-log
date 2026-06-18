@@ -57,18 +57,5 @@ void MainWindow::setupHandlers(void)
 
   connect(m_dwRibbon, &DWRibbon::quitClicked, qApp, &QCoreApplication::quit);
 
-  connect(m_dwRibbon, &DWRibbon::airplanesClicked, qApp,
-          [&]()
-          {
-            if (m_tabs.contains("airplanes"))
-            {
-              m_twCentralWidget->setCurrentIndex(m_tabs["airplanes"].index);
-              return;
-            }
-
-            WAirplanes *frm = new WAirplanes(this);
-            int idx = m_twCentralWidget->addTab(frm, tr("Airplanes"));
-            m_twCentralWidget->setCurrentIndex(idx);
-            m_tabs["airplanes"] = {idx, frm};
-          });
+  connect(m_dwRibbon, &DWRibbon::airplanesClicked, qApp, [&]() { showTab<WAirplanes>("airplanes", tr("Airplanes")); });
 }

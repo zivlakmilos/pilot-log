@@ -29,9 +29,9 @@ void WAirplanes::setupHandlers(void)
   connect(m_ui->btnAdd, &QPushButton::clicked, this, &WAirplanes::add);
   connect(m_ui->btnDelete, &QPushButton::clicked, this, &WAirplanes::remove);
 
-  connect(m_ui->txtModel, &QLineEdit::textEdited, [&]() { m_bEdited = true; });
-  connect(m_ui->txtRegistration, &QLineEdit::textEdited, [&]() { m_bEdited = true; });
-  connect(m_ui->cbClass, &QComboBox::activated, [&]() { m_bEdited = true; });
+  connect(m_ui->txtModel, &QLineEdit::textEdited, [&]() { setDirty(true); });
+  connect(m_ui->txtRegistration, &QLineEdit::textEdited, [&]() { setDirty(true); });
+  connect(m_ui->cbClass, &QComboBox::activated, [&]() { setDirty(true); });
 
   connect(
       m_ui->tblAirplanes->selectionModel(), &QItemSelectionModel::currentChanged, this,
@@ -51,6 +51,7 @@ void WAirplanes::setupHandlers(void)
             return;
           }
           m_bEdited = false;
+          emit dirtyChanged(false);
         }
 
         QSqlRecord record = m_model->record(current.row());
@@ -138,6 +139,8 @@ void WAirplanes::add(void)
   m_ui->txtModel->setText("");
   m_ui->txtRegistration->setText("");
   m_ui->cbClass->setCurrentIndex(0);
+
+  emit dirtyChanged(false);
 }
 
 void WAirplanes::remove(void)
@@ -168,4 +171,10 @@ void WAirplanes::remove(void)
   }
 
   add();
+}
+
+void WAirplanes::setDirty(bool bDirty)
+{
+  m_bEdited = bDirty;
+  emit dirtyChanged(bDirty);
 }

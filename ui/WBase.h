@@ -10,6 +10,9 @@ class WBase : public QWidget
 public:
   WBase(QWidget *parent = nullptr);
   virtual ~WBase(void);
+
+signals:
+  void dirtyChanged(bool bDirty);
 };
 
 #endif // _WBASE_H_

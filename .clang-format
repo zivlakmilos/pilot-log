@@ -22,3 +22,5 @@ BreakBeforeBraces: Allman
 PointerAlignment: Right
 ReferenceAlignment: Pointer
 DerivePointerAlignment: false
+
+AlwaysBreakTemplateDeclarations: true

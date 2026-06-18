@@ -22,6 +22,7 @@ private:
   void save(void);
   void add(void);
   void remove(void);
+  void setDirty(bool bDirty);
 
   Ui::WAirplanes *m_ui;
   QSqlTableModel *m_model;

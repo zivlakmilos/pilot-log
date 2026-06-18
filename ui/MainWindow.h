@@ -5,11 +5,11 @@
 #include <QMap>
 #include <QString>
 
+#include "WBase.h"
+
 class DWRibbon;
 class QTabWidget;
 class QLabel;
-
-class WBase;
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +28,40 @@ private:
 
   void setupUi(void);
   void setupHandlers(void);
+
+  template <typename T>
+  void showTab(QString sKey, QString sTitle)
+  {
+    if (m_tabs.contains(sKey))
+    {
+      m_twCentralWidget->setCurrentIndex(m_tabs[sKey].index);
+      return;
+    }
+
+    T *frm = new T(this);
+    int idx = m_twCentralWidget->addTab(frm, sTitle);
+    m_twCentralWidget->setCurrentIndex(idx);
+    m_tabs[sKey] = {idx, frm};
+
+    connect(frm, &WBase::dirtyChanged,
+            [this, sKey, sTitle](bool bDirty)
+            {
+              if (!m_tabs.contains(sKey))
+              {
+                return;
+              }
+
+              int idx = m_tabs[sKey].index;
+              if (bDirty)
+              {
+                m_twCentralWidget->setTabText(idx, sTitle + "*");
+              }
+              else
+              {
+                m_twCentralWidget->setTabText(idx, sTitle);
+              }
+            });
+  }
 
   DWRibbon *m_dwRibbon;
   QTabWidget *m_twCentralWidget;
