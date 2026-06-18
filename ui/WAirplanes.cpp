@@ -5,6 +5,7 @@
 #include <QtWidgets>
 
 #include "Database.h"
+#include "DirtyProxyModel.h"
 
 WAirplanes::WAirplanes(QWidget *parent) :
     WBase(parent),
@@ -50,8 +51,7 @@ void WAirplanes::setupHandlers(void)
 
             return;
           }
-          m_bEdited = false;
-          emit dirtyChanged(false);
+          setDirty(false);
         }
 
         QSqlRecord record = m_model->record(current.row());
@@ -75,8 +75,12 @@ void WAirplanes::setupModels(void)
   m_model->setHeaderData(m_model->record().indexOf("airplaneClass"), Qt::Horizontal, tr("Class"));
   m_model->select();
 
-  m_ui->tblAirplanes->setModel(m_model);
-  m_ui->tblAirplanes->setColumnHidden(m_model->record().indexOf("id"), true);
+  m_proxy = new DirtyProxyModel(this);
+  m_proxy->setSourceModel(m_model);
+
+  m_ui->tblAirplanes->setModel(m_proxy);
+  m_ui->tblAirplanes->setColumnWidth(0, 25);
+  m_ui->tblAirplanes->setColumnHidden(m_model->record().indexOf("id") + 1, true);
 }
 
 void WAirplanes::save(void)
@@ -140,7 +144,7 @@ void WAirplanes::add(void)
   m_ui->txtRegistration->setText("");
   m_ui->cbClass->setCurrentIndex(0);
 
-  emit dirtyChanged(false);
+  setDirty(false);
 }
 
 void WAirplanes::remove(void)
@@ -175,6 +179,15 @@ void WAirplanes::remove(void)
 
 void WAirplanes::setDirty(bool bDirty)
 {
+  if (bDirty)
+  {
+    m_proxy->setDirtyRow(m_ui->tblAirplanes->currentIndex().row());
+  }
+  else
+  {
+    m_proxy->setDirtyRow(-1);
+  }
+
   m_bEdited = bDirty;
   emit dirtyChanged(bDirty);
 }

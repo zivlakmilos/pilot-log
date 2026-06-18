@@ -5,6 +5,8 @@
 
 class QSqlTableModel;
 
+class DirtyProxyModel;
+
 namespace Ui
 {
 class WAirplanes;
@@ -26,6 +28,7 @@ private:
 
   Ui::WAirplanes *m_ui;
   QSqlTableModel *m_model;
+  DirtyProxyModel *m_proxy;
 
   QString m_sSelectedId;
   bool m_bEdited;
