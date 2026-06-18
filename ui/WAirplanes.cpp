@@ -129,7 +129,10 @@ void WAirplanes::save(void)
     return;
   }
 
-  add();
+  QModelIndex index = m_ui->tblAirplanes->currentIndex();
+  m_model->select();
+  setDirty(false);
+  m_ui->tblAirplanes->setCurrentIndex(index);
 }
 
 void WAirplanes::add(void)
