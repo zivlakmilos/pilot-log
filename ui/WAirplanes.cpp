@@ -124,10 +124,13 @@ void WAirplanes::save(void)
 
   if (!query.exec())
   {
+    QString sReg = m_ui->txtRegistration->text();
     qDebug() << "Error while saving airplane: " << query.lastError();
-    // TODO: show popup
+    QMessageBox::warning(this, tr("Error"), tr("Error while saving airplane %1!").arg(sReg));
     return;
   }
+
+  m_sSelectedId = sId;
 
   QModelIndex index = m_ui->tblAirplanes->currentIndex();
   m_model->select();
@@ -173,7 +176,7 @@ void WAirplanes::remove(void)
   if (!query.exec())
   {
     qDebug() << "Error while removing airplane: " << query.lastError();
-    // TODO: show popup
+    QMessageBox::warning(this, tr("Error"), tr("Error while removing airplane %1!").arg(sReg));
     return;
   }
 
