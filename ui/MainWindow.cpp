@@ -4,6 +4,7 @@
 
 #include "DWRibbon.h"
 #include "WAirplanes.h"
+#include "WInstructors.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -58,4 +59,6 @@ void MainWindow::setupHandlers(void)
   connect(m_dwRibbon, &DWRibbon::quitClicked, qApp, &QCoreApplication::quit);
 
   connect(m_dwRibbon, &DWRibbon::airplanesClicked, qApp, [&]() { showTab<WAirplanes>("airplanes", tr("Airplanes")); });
+  connect(m_dwRibbon, &DWRibbon::instructorsClicked, qApp,
+          [&]() { showTab<WInstructors>("instructors", tr("Instructors")); });
 }

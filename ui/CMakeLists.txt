@@ -1,6 +1,7 @@
 qt_add_library(ui STATIC
   WBase.cpp
 
+  WInstructors.cpp
   WAirplanes.cpp
 
   DWRibbon.cpp

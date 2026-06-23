@@ -57,7 +57,7 @@ void runMigrations(void)
         "  name TEXT,"
         "  surname TEXT,"
         "  licenceType TEXT,"
-        "  licenceNnumber TEXT"
+        "  licenceNumber TEXT"
         ")";
 
   if (!query.exec(sql))

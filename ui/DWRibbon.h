@@ -24,6 +24,7 @@ private:
 signals:
   void quitClicked(void);
   void airplanesClicked(void);
+  void instructorsClicked(void);
 };
 
 #endif // _WRIBBON_H_
